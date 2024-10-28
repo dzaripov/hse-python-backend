@@ -2,8 +2,11 @@ from fastapi import FastAPI, HTTPException, Response, status, Query
 from .models import Item, Cart, CartItem
 from typing import List, Optional, Annotated
 from pydantic import NonNegativeInt, PositiveInt, NonNegativeFloat
+from prometheus_fastapi_instrumentator import Instrumentator
 
 app = FastAPI(title="Shop API")
+
+Instrumentator().instrument(app).expose(app)
 
 items_db = {}
 carts_db = {}
